@@ -25,9 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button id="minusButtonOne" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <button onclick=" unitChange(false,'unitOne','upperUnitTotal',1219)"
+                              class="btn btn-default"><i class="fas fa-minus"></i></button>
                            <input id="unitOne" type="text" class="form-control text-center" value="1">
-                           <button id="plusButtonOne" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button onclick=" unitChange(true,'unitOne','upperUnitTotal',1219)"
+                              class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
                         <h5>$ <span id="upperUnitTotal">1219</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
@@ -43,9 +45,11 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button id="minusButtonTwo" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <button onclick=" unitChange(false,'unitTwo','lowerUnitTotal',59)" class="btn btn-default"><i
+                                 class="fas fa-minus"></i></button>
                            <input id="unitTwo" type="text" class="form-control text-center" value="1">
-                           <button id="plusButtonTwo" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button onclick=" unitChange(true,'unitTwo','lowerUnitTotal',59)" class="btn btn-default"><i
+                                 class="fas fa-plus"></i></button>
 
                         </div>
                         <h5>$ <span id="lowerUnitTotal">59</span></h5>
@@ -79,69 +83,35 @@
    </section>
    <script>
 
-      document.getElementById('plusButtonOne').addEventListener('click', function(){
-         const unitCount = unitIncrease('unitOne')
-         const unitTotalOne = unitePriceTotal(unitCount, 1219,'upperUnitTotal');
-         console.log(unitTotalOne);
-         subTotal();
-         
-      })
-
-      document.getElementById('plusButtonTwo').addEventListener('click', function(){
-         const unitCount = unitIncrease('unitTwo')
-         const unitTotalTwo = unitePriceTotal(unitCount, 59,'lowerUnitTotal');
-         subTotal();
-         
-      })
-
-      document.getElementById('minusButtonOne').addEventListener('click', function(){
-         const unitCount = unitDecrease('unitOne')
-         const unitTotalOne = unitePriceTotal(unitCount, 1219,'upperUnitTotal');
-       
-         subTotal();
-         
-      })
-
-      document.getElementById('minusButtonTwo').addEventListener('click', function(){
-         const unitCount = unitDecrease('unitTwo')
-         const unitTotalTwo = unitePriceTotal(unitCount, 59,'lowerUnitTotal');
-         subTotal();
-         
-      })
-
-    function unitIncrease(id){
-      const unit = document.getElementById(id).value 
+      function unitChange(isIncrease, id, unitId, unitPrice) {
+         const unit = document.getElementById(id).value
          unitInNumber = parseFloat(unit);
-         unitInNumber += 1;
-          const unitValue = document.getElementById(id).value = unitInNumber;
-         return  unitValue;
-    }
+         let unitCount = unitInNumber
+         if (isIncrease == true) {
+            unitCount += 1;
+         }
+         else if (isIncrease == false && unitInNumber > 0) {
+            unitCount -= 1;
+         }
 
-    function unitDecrease(id){
-      const unit = document.getElementById(id).value 
-         unitInNumber = parseFloat(unit);
-         unitInNumber -= 1;
-         const unitValue = document.getElementById(id).value = unitInNumber;
-         return  unitValue;
-    }
+         const unitValue = document.getElementById(id).value = unitCount;
+         const totalPrice = unitValue * unitPrice;
+         document.getElementById(unitId).innerText = totalPrice;
+         subTotal();
 
-    function unitePriceTotal(unitCount, unitPrice ,unitId){
-       console.log(unitCount);
-       const totalPrice = unitCount * unitPrice;
-       console.log(totalPrice);
-       document.getElementById(unitId).innerText = totalPrice;
-       return totalPrice;
-    }
 
-    function  subTotal(){
-       const unitTotalOne  = document.getElementById('upperUnitTotal').innerText;
-       const unitTotalOneNumber = parseFloat(unitTotalOne)
-       const unitTotalTwo = document.getElementById('lowerUnitTotal').innerText;
-       const unitTotalTwoNumber = parseFloat(unitTotalTwo)
-       const subTotalNumber = unitTotalOneNumber + unitTotalTwoNumber;
-       console.log(subTotalNumber);
-       document.getElementById('subTotal').innerText = subTotalNumber;
-       
+
+      }
+
+       function subTotal() {
+          const unitTotalOne = document.getElementById('upperUnitTotal').innerText;
+          const unitTotalOneNumber = parseFloat(unitTotalOne)
+          const unitTotalTwo = document.getElementById('lowerUnitTotal').innerText;
+         const unitTotalTwoNumber = parseFloat(unitTotalTwo)
+          const subTotalNumber = unitTotalOneNumber + unitTotalTwoNumber;
+         console.log(subTotalNumber);
+         document.getElementById('subTotal').innerText = subTotalNumber;
+
     }
    </script>
 </body>
