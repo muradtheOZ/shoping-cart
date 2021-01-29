@@ -25,7 +25,7 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <button id="minusButtonOne" class="btn btn-default"><i class="fas fa-minus"></i></button>
                            <input id="unitOne" type="text" class="form-control text-center" value="1">
                            <button id="plusButtonOne" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
@@ -43,7 +43,7 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <button id="minusButtonTwo" class="btn btn-default"><i class="fas fa-minus"></i></button>
                            <input id="unitTwo" type="text" class="form-control text-center" value="1">
                            <button id="plusButtonTwo" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
@@ -78,6 +78,7 @@
       </div>
    </section>
    <script>
+
       document.getElementById('plusButtonOne').addEventListener('click', function(){
          unitIncrease('unitOne')
          
@@ -88,10 +89,27 @@
          
       })
 
+      document.getElementById('minusButtonOne').addEventListener('click', function(){
+         unitDecrease('unitOne')
+         
+      })
+
+      document.getElementById('minusButtonTwo').addEventListener('click', function(){
+         unitDecrease('unitTwo')
+         
+      })
+
     function unitIncrease(id){
       const unit = document.getElementById(id).value 
          unitInNumber = parseFloat(unit);
          unitInNumber += 1;
+         document.getElementById(id).value = unitInNumber;
+    }
+
+    function unitDecrease(id){
+      const unit = document.getElementById(id).value 
+         unitInNumber = parseFloat(unit);
+         unitInNumber -= 1;
          document.getElementById(id).value = unitInNumber;
     }
    </script>
